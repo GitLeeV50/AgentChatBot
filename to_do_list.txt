@@ -1,0 +1,104 @@
+AI-Agent-RAG-Project/
+│
+├── app/                               # 应用核心（重命名，更清晰）
+│   ├── __init__.py
+│   ├── interface.py                   # ✅ 新增：统一对外接口
+│   │
+│   ├── agent/                         # 智能体模块
+│   │   ├── __init__.py
+│   │   ├── core.py                    # ReAct智能体核心（原react_agent.py）
+│   │   ├── factory.py                 # ✅ 新增：Agent工厂
+│   │   │
+│   │   └── tools/                     # 工具系统
+│   │       ├── __init__.py
+│   │       ├── registry.py            # ✅ 新增：工具注册中心
+│   │       ├── base.py                # ✅ 新增：工具基类+装饰器
+│   │       ├── builtin.py             # 内置工具（RAG、计算器等）
+│   │       └── custom.py              # ✅ 新增：自定义工具（用户扩展点）
+│   │
+│   ├── rag/                           # RAG模块
+│   │   ├── __init__.py
+│   │   ├── service.py                 # RAG业务封装（原rag_service.py）
+│   │   ├── vector_store.py            # 向量库管理
+│   │   ├── document_processor.py      # ✅ 拆分：文档分块处理
+│   │   │
+│   │   └── loaders/                   # ✅ 新增：文档加载器
+│   │       ├── __init__.py
+│   │       ├── base.py                # 加载器基类
+│   │       ├── factory.py             # 加载器工厂
+│   │       └── implementations.py     # PDF/Word/TXT/MD实现
+│   │
+│   ├── memory/                        # ✅ 新增：记忆管理模块
+│   │   ├── __init__.py
+│   │   └── session_manager.py         # 会话记忆管理
+│   │
+│   └── middleware/                    # 中间件模块
+│       ├── __init__.py
+│       └── callbacks.py               # ✅ 重命名：回调处理器（监控+日志）
+│
+├── infrastructure/                    # ✅ 新增：基础设施层
+│   ├── __init__.py
+│   ├── llm/                           # LLM管理
+│   │   ├── __init__.py
+│   │   ├── client.py                  # 统一LLM客户端
+│   │   └── providers.py               # 多提供商支持
+│   │
+│   ├── config/                        # 配置管理
+│   │   ├── __init__.py
+│   │   ├── manager.py                 # 配置管理器（合并原config_handler）
+│   │   └── schema.py                  # ✅ 新增：配置Pydantic模型
+│   │
+│   ├── logging/                       # 日志管理
+│   │   ├── __init__.py
+│   │   └── manager.py                 # 日志管理器（合并原logger_handler）
+│   │
+│   └── exceptions/                    # ✅ 新增：异常处理
+│       ├── __init__.py
+│       └── handler.py                 # 异常定义+全局处理器
+│
+├── utils/                             # 工具库（精简）
+│   ├── __init__.py
+│   ├── file_handler.py                # 文件读取+MD5校验
+│   ├── path_handler.py                # 绝对路径管理（原path_tool）
+│   └── prompt_loader.py               # 提示词加载器
+│
+├── configs/                           # 配置文件目录（重命名，复数）
+│   ├── config.yaml                    # ✅ 合并：统一配置文件
+│   └── prompts/                       # 提示词模板
+│       ├── main_prompt.txt
+│       ├── rag_summarize.txt
+│       └── report_prompt.txt
+│
+├── data/                              # 数据资产
+│   ├── external/                      # 外部业务数据
+│   ├── chroma_db/                     # ✅ 移出源码目录
+│   └── uploads/                       # 临时上传文件
+│
+├── logs/                              # 日志目录
+│   ├── app.log
+│   ├── llm_calls.log                  # ✅ 新增：LLM调用专用日志
+│   └── errors.log
+│
+├── scripts/                           # ✅ 新增：脚本工具
+│   ├── init_db.py                     # 初始化数据库
+│   └── migrate_docs.py                # 批量导入文档
+│
+├── tests/                             # ✅ 新增：测试目录
+│   ├── test_agent.py
+│   ├── test_rag.py
+│   └── test_tools.py
+│
+├── docs/                              # ✅ 新增：文档目录
+│   ├── DEVELOPMENT.md                 # 开发指南
+│   └── TOOL_DEVELOPMENT.md            # 工具开发指南
+│
+├── web/                               # ✅ 可选：Web界面（Streamlit）
+│   ├── app.py
+│   └── components.py
+│
+├── .env.example                       # ✅ 新增：环境变量模板
+├── .gitignore
+├── md5.txt                            # 去重记录（建议改名 .cache/md5_cache.json）
+├── requirements.txt
+├── main.py                            # 命令行入口（原app.py）
+└── run_web.py                         # ✅ 可选：Web启动入口

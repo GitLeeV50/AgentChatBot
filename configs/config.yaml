@@ -1,0 +1,36 @@
+# Unified configuration file
+
+# --- RAG Configuration ---
+rag:
+  data_path: data/external
+  state_file: data/processed_files.json
+  collection_name: agent_knowledge
+  persist_directory: data/chroma_db
+  top_k: 3
+  allow_file_types: [".txt", ".pdf", ".md"]
+  
+  # Chunking
+  chunk_size: 500
+  chunk_overlap: 50
+  separators: ["\n\n", "\n", "。", "！", "？", ".", "!", "?", " "]
+
+# --- Prompt Paths ---
+prompts:
+  main_prompt: configs/prompts/main_prompt.txt
+  rag_summarize: configs/prompts/rag_summarize.txt
+  role_prompt: configs/prompts/role_play.txt
+
+# --- LLM Configuration ---
+llm:
+  # 支持 openai, qwen, ollama, lmstudio
+  chat_provider: qwen
+  chat_model: qwen-turbo
+  chat_api_key: # 从环境变量 DASHSCOPE_API_KEY 获取
+  chat_base_url: # 留空使用默认，本地模型需填写如 http://localhost:11434/v1
+  
+  embedding_provider: qwen
+  embedding_model: text-embedding-v4
+  embedding_api_key: # 从环境变量 DASHSCOPE_API_KEY 获取
+  embedding_base_url: # 留空使用默认
+
+  temperature: 0.7
